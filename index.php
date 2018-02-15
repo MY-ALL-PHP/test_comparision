@@ -5,13 +5,12 @@ include 'connection.php';
 require_once 'Mobile_Detect.php';
 require_once 'detect.php';
 
-// error_reporting(-1);
-// ini_set('display_errors', 'On');
-// set_error_handler("var_dump");
 ?>
+
 <?php
 if(isset($_POST["submit"]))
 {
+
 $id=0;
 $name=$_POST["name"];
 $email=$_POST["email"];
@@ -23,55 +22,29 @@ date_default_timezone_set('Asia/Kolkata');
 
 $created_date= date("Y-m-d h:i:s");
 
-// echo $name;
-// echo "<br>";
-//
-// echo $email;
-// echo "<br>";
-//
-// echo $phone;
-// echo "<br>";
-//
-// echo $location;
-// echo "<br>";
-//
-// echo $message;
-// echo "<br>";
-//
-// echo $created_date;
-// echo "<br>";
-//
-// echo $browser_info;
-// echo "<br>";
-
-// exit;
-
-// print phpinfo();
-
 $query="INSERT INTO `contact`(`id`, `name`, `email`, `phone`, `location`, `message`,`date`,`browser_info`) VALUES ('$id','$name','$email','$phone','$location','$message','$created_date','$browser_info')";
 mysql_query($query);
 
 $_SESSION["status"] = "contact";
 // print_r($_SESSION["status"]);
-if($_SESSION["status"]=="contact")
-{
-  echo "<script>
-           $(document).ready(function()
-           {
-             $('#mynewModal').modal('show');
-             setTimeout(function(){
-         $('#mynewModal').modal('hide');
-       }, 5000);
-           });
-    </script>";
-}
+          if($_SESSION["status"]=="contact")
+          {
+            echo "<script>
+                     $(document).ready(function()
+                     {
+                       $('#mynewModal').modal('show');
+                       setTimeout(function(){
+                   $('#mynewModal').modal('hide');
+                 }, 5000);
+                     });
+              </script>";
+          }
 
 require_once 'phpmailer.php';
-$subject = "Enquiry from Nativebarn contact";
+$subject = "Enquiry from AKB Group contact";
 
 $msg = "Hello,
               You have a enquiry from contact page.
-
               Name : ".$name."
               Email : ".$email."
               Phone : ".$phone."
@@ -80,109 +53,46 @@ $msg = "Hello,
 
               Thank You.
             ";
-
-// $destino= "satish@active.agency";
-
-
-// $mail = new phpmailer();  //PHPMailer
-// $mail->IsSMTP(); // we are going to use SMTP
-// $mail->Mailer = 'smtp';
-// $mail->Host = "smtp.mailgun.org";
-// $mail->SMTPAuth = true;
-// $mail->Username = "arun@sandbox268e9d7709114d6db616e62ce42f2ada.mailgun.org";
-// $mail->Password = "arun123";
-// $mail->SMTPAutoTLS = false;
-// $mail->SMTPSecure = 'SSL';
-// $mail->Port = 25;   // Tried with 465 but didnt work.
-// $mail->setFrom('arun@active.agency');
-// $mail->AddAddress($destino);
-// $mail->Subject = $subject;
-// $mail->Body = $msg;
-// $mail->SMTPDebug = 0;  // can use 1 or 2 or 3 or 4 for viewing more details..
-// // print_r($mail->Username);exit;
-// if($mail->Send())
-// {
-//   //echo "success";
-// }
-// else
-// {
-//   //echo "not sent";
-// }
-
-//-----------LIVE Credentials---------------------------//
-
-// $destino= "hello@nativebarn.com";
-//
-// $mail = new phpmailer();  //PHPMailer
-// $mail->IsSMTP(); // we are going to use SMTP
-// $mail->Mailer = 'smtp';
-// $mail->Host = "smtp.mailgun.org";
-// $mail->SMTPAuth = true;
-// $mail->Username = "postmaster@nativebarn.com";
-// $mail->Password = "978600cb7d038a86575ff512466918c3";
-// $mail->SMTPAutoTLS = false;
-// $mail->SMTPSecure = 'SSL';
-// $mail->Port = 25;   // Tried with 465 but didnt work.
-// $mail->setFrom('info@nativebarn.com');
-// $mail->AddAddress($destino);
-// // $mail->AddAddress('usman@noreeba.com', 'person two');
-// $mail->Subject = $subject;
-// $mail->Body = $msg;
-// $mail->SMTPDebug = 0;  // can use 1 or 2 or 3 or 4 for viewing more details..
-// // print_r($mail->Username);exit;
-// if($mail->Send())
-// {
-//   //echo "success";
-// }
-// else
-// {
-//   //echo "not sent";
-// }
-
 //-----------LIVE Credentials---------------------------//
 }
+
+
+
+
 
 if(isset($_POST["subscribe"]))
 {
-$id=0;
-$email=$_POST["subscribe_email"];
-$browser_info = browser_data();
-date_default_timezone_set('Asia/Kolkata');
-$created_date= date("Y-m-d h:i:s");
+  $id=0;
+  $email=$_POST["subscribe_email"];
+  $browser_info = browser_data();
+  date_default_timezone_set('Asia/Kolkata');
+  $created_date= date("Y-m-d h:i:s");
 
- // echo $email;
- // echo "<br>";
- //
- // echo $browser_info;
- // echo "<br>";
+  $query="INSERT INTO `subscribe`(`id`,`email`,`date`,`browser_info`) VALUES ('$id','$email','$created_date','$browser_info')";
+  $a = mysql_query($query);
 
-$query="INSERT INTO `subscribe`(`id`,`email`,`date`,`browser_info`) VALUES ('$id','$email','$created_date','$browser_info')";
-$a = mysql_query($query);
-
-if($a)
-{
-  $_SESSION["status"] = "subscribe";
-  // print_r($_SESSION["status"]);
-  if($_SESSION["status"]=="subscribe")
+  if($a)
   {
-    echo "<script>
-             $(document).ready(function()
-             {
-               $('#mysubModal').modal('show');
-               setTimeout(function(){
-           $('#mysubModal').modal('hide');
-         }, 5000);
-             });
-      </script>";
+    $_SESSION["status"] = "subscribe";
+    // print_r($_SESSION["status"]);
+    if($_SESSION["status"]=="subscribe")
+    {
+      echo "<script>
+               $(document).ready(function()
+               {
+                 $('#mysubModal').modal('show');
+                 setTimeout(function(){
+             $('#mysubModal').modal('hide');
+           }, 5000);
+               });
+        </script>";
+    }
   }
-}
-
 }
 
 
 
 function browser_data(){
-
   if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
           $ip=$_SERVER['HTTP_CLIENT_IP'];}
           elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -193,7 +103,6 @@ function browser_data(){
           $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
   /* Load Library*/
-
 
   /*Find Device Type*/
           $device_type=Detect::deviceType($userAgent);
@@ -218,50 +127,94 @@ function browser_data(){
 // 					$location=array('city'=>$loc_details['city'],'state'=>$loc_details['region'],'country'=>$loc_details['country']);
           return $ip."<br>".$userAgent."<br>".$device."<br>".$os."<br>";
           // print_r($location);exit;
-
 }
+
+
 
 function contactmail()
 {
-  require_once 'phpmailer.php';
-  $subject = "This is sample subject";
 
-  $msg = "This is message from website contact page.";
+//   require_once 'phpmailer.php';
+//   $subject = "This is sample subject";
+//
+//   $msg = "This is message from website contact page.";
+// //my change here..
+//   $destino="subrat@active.agency";
+//
+//   $mail = new phpmailer();  //PHPMailer
+//   $mail->IsSMTP(); // we are going to use SMTP
+//   $mail->Mailer = 'smtp';
+//   $mail->Host = "smtp.mailgun.org";
+//   $mail->SMTPAuth = true;
+//   $mail->Username = "arun@sandbox268e9d7709114d6db616e62ce42f2ada.mailgun.org";
+//   $mail->Password = "arun123";
+//   $mail->SMTPAutoTLS = false;
+//   $mail->SMTPSecure = 'SSL';
+//   $mail->Port = 25;   // Tried with 465 but didnt work.
+//   $mail->setFrom('arun@active.agency');
+//
+//   $destino = "subrat@active.agency";
+//
+//   $mail->AddAddress($destino);
+//   $mail->Subject = "checking..";//$subject;
+//   $mail->Body = "checking";//$msg;
+//   $mail->SMTPDebug = 0;  // can use 1 or 2 or 3 or 4 for viewing more details..
+//   // print_r($mail->Username);exit;
+//   if($mail->Send())
+//   {
+//     //echo "success";
+//   }
+//   else
+//   {
+//     //echo "not sent";
+//   }
 
-  $destino="me.arunchandran.here@gmail.com";
 
-  $mail = new phpmailer();  //PHPMailer
-  $mail->IsSMTP(); // we are going to use SMTP
-  $mail->Mailer = 'smtp';
-  $mail->Host = "smtp.mailgun.org";
-  $mail->SMTPAuth = true;
-  $mail->Username = "arun@sandbox268e9d7709114d6db616e62ce42f2ada.mailgun.org";
-  $mail->Password = "arun123";
-  $mail->SMTPAutoTLS = false;
-  $mail->SMTPSecure = 'SSL';
-  $mail->Port = 25;   // Tried with 465 but didnt work.
-  $mail->setFrom('arun@active.agency');
-  $mail->AddAddress($destino);
-  $mail->Subject = $subject;
-  $mail->Body = $msg;
-  $mail->SMTPDebug = 0;  // can use 1 or 2 or 3 or 4 for viewing more details..
-  // print_r($mail->Username);exit;
-  if($mail->Send())
-  {
-    //echo "success";
-  }
-  else
-  {
-    //echo "not sent";
-  }
+
+
+require_once 'phpmailer.php';
+$subject = "This is sample subject";
+
+$msg = "This is message from website contact page.";
+
+$destino = "subrat@active.agency";//"me.arunchandran.here@gmail.com";
+
+$mail = new phpmailer();  //PHPMailer
+$mail->IsSMTP(); // we are going to use SMTP
+$mail->Mailer = 'smtp';
+$mail->Host = "smtp.mailgun.org";
+$mail->SMTPAuth = true;
+$mail->Username = "arun@sandbox268e9d7709114d6db616e62ce42f2ada.mailgun.org";
+$mail->Password = "arun123";
+$mail->SMTPAutoTLS = false;
+$mail->SMTPSecure = 'SSL';
+$mail->Port = 25;   // Tried with 465 but didnt work.
+$mail->setFrom('arun@active.agency');
+$mail->AddAddress($destino);
+$mail->Subject = $subject;
+$mail->Body = $msg;
+$mail->SMTPDebug = 0;  // can use 1 or 2 or 3 or 4 for viewing more details..
+// print_r($mail->Username);exit;
+if($mail->Send())
+{
+
+  ///echo "success";
+}
+else
+{
+  //echo "not sent";
+}
+
 }
 
 
 ?>
+
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Native Barn Coming Soon</title>
+  <title>AKB Group Coming Soon</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
@@ -272,6 +225,8 @@ function contactmail()
   </style>
 </head>
 <body>
+
+
   <!--top logo-->
 <div class="fixedHeader">
   <div class="container-fluid topStrip">
@@ -285,15 +240,19 @@ function contactmail()
         <div class="top">
           <div class="col-lg-1 col-md-0 col-sm-0"></div>
           <div class="col-lg-3 col-md-3 col-sm-3 phone">
-            <p><a href="tel:0800 030 6865"><span class="phone-no"><span class="f-size"><i class="fa fa-phone" aria-hidden="true"></i></span><span class="f-size"> 0800 030 6865</span></span><span class="phone-icon"><i class="fa fa-phone" aria-hidden="true"></i></span></a></p>
+            <p><a href="tel:+91 (80) 67590504">
+              <span class="phone-no">
+                <span class="f-size"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                <span class="f-size"> +91 (80) 67590504</span>
+              </span>
+              <span class="phone-icon"><i class="fa fa-phone" aria-hidden="true"></i></span></a></p>
           </div>
           <div class="col-lg-3 col-md-5 col-sm-5 logoo">
-            <img src="images/Logo-New.png" alt="logo" class="img-responsive">
+            <img src="images/logo.png" alt="logo" class="img-responsive">
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-3 text-right">
-            <p><a href="mailto:hello@nativebarn.com"><span class="mail-add"><span class="f-size"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span class="f-size">&nbsp&nbsphello@nativebarn.com</span></span><span class="mail-icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span></a></p>
+          <div class="col-lg-3 col-md-3 col-sm-3 emailRght text-right">
+            <p><a href="mailto:info@akbgroup.in"><span class="mail-add"><span class="f-size"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span class="f-size">&nbsp&nbspinfo@akbgroup.in</span></span><span class="mail-icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span></a></p>
           </div>
-          <!-- <div class="col-lg-2 col-md-1"></div> -->
         </div>
       </div>
       <div class="col-md-12 col-lg-12 text-center top-text">
@@ -302,82 +261,47 @@ function contactmail()
     </div>
   </div>
   <!--top heading-->
-  <!-- <div class="container-fluid heading">
-    <div class="row">
-      <div class="col-md-12 col-lg-12 text-center top-text">
-        <p>We are currently working on our site.<a href="" data-toggle="modal" data-target="#myModal"> Subscribe</a> to be the first to find out when we launch our brand new website. </p>
-      </div>
-    </div>
-  </div> -->
 </div>
   <!--slider-->
   <div class="slider">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <!-- <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-       <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol> -->
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
 
       <div class="item active imagee">
-        <img src="images/nativebarn-banner-image.jpg" alt="Slider1" style="width:100%;">
+        <img src="images/Banner_new.jpg" alt="Slider1" style="width:100%;" class="desktopImg">
+        <img src="images/Small-Banner.jpg" alt="" style="width:100%;" class="mobileImg">
         <div class="carousel-caption font">
           <!-- <h3>Launching Soon</h3>
           <p>Beautiful Interior & Luxury Furniture</p> -->
         </div>
       </div>
-
-      <!-- <div class="item imagee">
-        <img src="images/nativebarn-banner-image2.jpg" alt="Chicago" style="width:100%;">
-        <div class="carousel-caption font">
-          <h3>Launching Soon</h3>
-          <p>Beautiful Interior & Luxury Furniture</p>
-        </div>
-      </div> -->
-
-      <!-- <div class="item imagee">
-        <img src="images/nativebarn-banner-image3.jpg" alt="Chicago" style="width:100%;">
-        <div class="carousel-caption font">
-          <h3>Launching Soon</h3>
-          <p>Beautiful Interior & Luxury Furniture</p>
-        </div>
-      </div> -->
-
     </div>
-
-    <!-- Left and right controls -->
-    <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a> -->
   </div>
 </div>
 <!--section-->
+
+
+
+
 <div class="container">
   <div class="row">
-    <div class="col-lg-12 col-md-12 text-center section-heading">
+    <!-- <div class="col-lg-12 col-md-12 text-center section-heading">
       <p class="sec-heading">Native Barn is your new home for luxury interior. Working with some of the top furniture
       </p>
       <p class="sec-heading">brands, we aim to deliver the very best in quality and choice</p>
       <p class="sec-heading-sm">Native Barn is your new home for luxury interior. Working with some of the top furniture brands, we aim to deliver the very best in quality and choice</p>
-    </div>
+    </div> -->
     <div class="col-lg-12 col-md-12 text-center sub-heading">
       <h2>Connect with us</h2>
-      <p class="text-sub-heading">Whether you are a trader, designer or consumer, we would love to hear from you.</p>
+      <p class="text-sub-heading">Please fill in your complete details and we will get back to you.</p>
     </div>
     <!--form-->
 
       <div class="col-sm-12 form-box">
   <div class="col-sm-10  col-sm-offset-1">
-    <form method="post" action="">
+    <form method="post" action="index.php">
     <div class="col-sm-6 form-margin">
           <div class="form-group">
               <input type="text" class="form-control box" id="name" placeholder="Name*" name="name">
@@ -421,37 +345,23 @@ function contactmail()
   </div>
 </div>
 <div class="container">
-<div class="contacts">
-	<div class="contact-details">
-	   <div class="c-box">
-
-		   <h4>Registered Address</h4>
-		   <p>Lowry House, <br>
-			17 Marble Street<br>
-			Manchester, M2 3AW
-			</p>
-	   </div>
-	   <div class="c-boxTwo">
-		   <h4>Follow us on</h4>
-       <a href=""><i class="fa fa-facebook"></i></a>
-       <a href=""><i class="fa fa-twitter"></i></a>
-       <a href=""><i class="fa fa-pinterest-p"></i></a>
-       <a href=""><i class="fa fa-instagram"></i></a>
-	   </div>
- 	</div>
+  <div class="contacts">
+  	<div class="contact-details">
+  	   <div class="c-box">
+          <h4>Registered Address</h4>
+    		   <p>Level 15, Concorde Towers <br>
+    			UB City, 1 Vittal Mallya Road<br>
+    			Bangalore 560 - 001
+    			</p>
+  	   </div>
+    </div>
+  </div>
 </div>
-</div>
-<!-- <div class="" id="map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2374.2657250300576!2d-2.2431002837620344!3d53.481581780007524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bb1c0e63974cf%3A0xbd4c035e843bec3b!2sBruntwood+Office+Space+Lowry+House!5e0!3m2!1sen!2sin!4v1510821239412" width="100%" style="border:0;" allowfullscreen></iframe>
-</div> -->
-<!--footer-->
 <div class="container-fluid text-center footer">
-  <p>All Rights Reserved &copy; Native Barn 2017</p>
+  <p>All Rights Reserved &copy; AKB Group 2018</p>
 </div>
 <!--model-->
 <div class="container">
-  <!-- Trigger the modal with a button -->
-  <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
@@ -475,12 +385,9 @@ function contactmail()
               </div>
             </form>
           </div>
-          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-
-          </div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -499,17 +406,7 @@ function contactmail()
         </div>
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-        <!-- <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-          <form method="post" action="">
-            <div class="form-group pop">
-              <input type="email" class="form-control pop-email" id="user_email" placeholder="Enter Email Address" name="subscribe_email">
-              <button type="submit" name="subscribe" id="subscribe" class="btn btn-default btn-block pop-butn"><p>SUBSCRIBE</p></button>
-            </div>
-          </form>
-        </div> -->
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-
-        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
       </div>
     </div>
 
@@ -532,17 +429,7 @@ function contactmail()
 
         </div>
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
-        <!-- <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-          <form method="post" action="">
-            <div class="form-group pop">
-              <input type="email" class="form-control pop-email" id="user_email" placeholder="Enter Email Address" name="subscribe_email">
-              <button type="submit" name="subscribe" id="subscribe" class="btn btn-default btn-block pop-butn"><p>SUBSCRIBE</p></button>
-            </div>
-          </form>
-        </div> -->
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-
-        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
       </div>
     </div>
 
@@ -578,115 +465,84 @@ $(document).ready(function() {
 
       var preg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-     if( contact_email !='')
-        {
-          if(!contact_email.match(preg))
-            {
+     if( contact_email !=''){
+          if(!contact_email.match(preg)){
              $("#email").css("border-color" , "#ffcdcd");
               $("#vemail").show();
                 bool++;
             //  return false;
-
             }
-            else
-              {
+            else{
                 $("#email").css("border-color" , "");
                  $("#vemail").hide();
               }
         }
 
-        if( contact_message =='' && contact_location =='' && contact_email =='' && contact_phone =='' && contact_name =='')
-        {
-          $("#rmsg").show();
-          $("#rname").show();
-          $("#rphone").show();
-          $("#remail").show();
-          $("#rloc").show();
-
-           bool++;
-         //return false;
-
+        if( contact_message =='' && contact_location =='' && contact_email =='' && contact_phone =='' && contact_name ==''){
+            $("#rmsg").show();
+            $("#rname").show();
+            $("#rphone").show();
+            $("#remail").show();
+            $("#rloc").show();
+            bool++;
         }
 
-         if( contact_name =='')
-         {
-         $("#name").css("border-color" , "#ffcdcd");
-           $("#rname").show();
+         if( contact_name ==''){
+             $("#name").css("border-color" , "#ffcdcd");
+             $("#rname").show();
           //  $(".mobhid").hide();
              bool++;
-         //return false;
-
          }
-         else
-           {
+         else{
              $("#name").css("border-color" , "");
-               $("#rname").hide();
+             $("#rname").hide();
            }
 
-
-         if( contact_phone =='')
-         {
-         $("#phone").css("border-color" , "#ffcdcd");
-         $("#rphone").show();
-           bool++;
-         //return false;
-
+         if( contact_phone ==''){
+             $("#phone").css("border-color" , "#ffcdcd");
+             $("#rphone").show();
+             bool++;
          }
-         else
-           {
+         else{
              $("#phone").css("border-color" , "");
-               $("#rphone").hide();
+             $("#rphone").hide();
            }
 
 
-         if( contact_email =='')
-         {
-         $("#email").css("border-color" , "#ffcdcd");
-           $("#remail").show();
-            bool++;
-        //  return false;
-
+         if( contact_email ==''){
+              $("#email").css("border-color" , "#ffcdcd");
+              $("#remail").show();
+              bool++;
          }
-         else
-           {
-             $("#email").css("border-color" , "");
-               $("#remail").hide();
+         else{
+              $("#email").css("border-color" , "");
+              $("#remail").hide();
            }
 
-        if( contact_location =='')
-        {
-        $("#loc").css("border-color" , "#ffcdcd");
-          $("#rloc").show();
-           bool++;
-        // return false;
-
+        if( contact_location ==''){
+              $("#loc").css("border-color" , "#ffcdcd");
+              $("#rloc").show();
+              bool++;
         }
-        else
-          {
-            $("#loc").css("border-color" , "");
+        else{
+              $("#loc").css("border-color" , "");
               $("#rloc").hide();
           }
 
-       if( contact_message =='')
-       {
-       $("#message").css("border-color" , "#ffcdcd");
-         $("#rmsg").show();
-          bool++;
-      //  return false;
-
+       if( contact_message ==''){
+              $("#message").css("border-color" , "#ffcdcd");
+              $("#rmsg").show();
+              bool++;
        }
-       else
-         {
-           $("#message").css("border-color" , "");
+       else{
+             $("#message").css("border-color" , "");
              $("#rmsg").hide();
          }
 
 
 
-       if(bool > 0)
-       {
+       if(bool > 0){
         //  $(".mobhid").hide();
-
          return false;
        }
        else {
@@ -699,48 +555,37 @@ $(document).ready(function() {
   });
 
 
-  $(document).on('click','#subscribe',function()
-  {
+  $(document).on('click','#subscribe',function() {
        var bool1=0;
       // return false;
 
       var contact_email=$('#user_email').val();
 
-
       var preg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-      if( contact_email !='')
-        {
-          if(!contact_email.match(preg))
-            {
+      if( contact_email !=''){
+          if(!contact_email.match(preg)) {
                 $("#vsemail").show();
                 bool1++;
             //  return false;
-
             }
-            else
-              {
-
-                 $("#vsemail").hide();
+            else {
+                $("#vsemail").hide();
               }
         }
 
-         if( contact_email =='')
-         {
+         if( contact_email =='') {
         //  $("#email").css("border-color" , "#ffcdcd");
            $("#rsemail").show();
             bool1++;
         //  return false;
-
          }
-         else
-           {
+         else {
             //  $("#email").css("border-color" , "");
                $("#rsemail").hide();
            }
 
-       if(bool1 > 0)
-       {
+       if(bool1 > 0) {
          return false;
        }
        else {
@@ -758,6 +603,7 @@ $(document).ready(function() {
 <link rel="stylesheet" href="css/style.css">
 </body>
 </html>
+
 <script type="text/javascript">
 $(function()
 {
@@ -787,69 +633,52 @@ $(function() {
 
 $(function() {
   //called when key is pressed in textbox
-    $("#phone").keypress(function (e)
-      {
-        if (e.which == 32)
-        {
+    $("#phone").keypress(function (e) {
+        if (e.which == 32) {
           var contact_phone=$('#phone').val();
-          if (contact_phone.length <1)
-          {
+          if (contact_phone.length <1) {
 
             return false; // not allowing space to  be first.
           }
-          else
-          {
+          else {
 
             return true;
           }
         }
 
-      else
-        {
-          if (e.which >=65 && e.which <=122 )
-          {
+      else {
+          if (e.which >=65 && e.which <=122 ) {
               return false; // not allowing alphabets.
           }
-          else
-          {
+          else {
              return true;
           }
         }
       });
 });
 
-$(function()
-{
-    $('#loc').on('keypress', function(e)
-    {
-      if (e.which == 32)
-      {
+$(function() {
+    $('#loc').on('keypress', function(e) {
+      if (e.which == 32) {
         var contact_loc=$('#loc').val();
-        if (contact_loc.length <1)
-        {
+        if (contact_loc.length <1) {
           return false; // not allowing space to  be first.
         }
-        else
-        {
+        else {
           return true;
         }
       }
     });
 });
 
-$(function()
-{
-    $('#message').on('keypress', function(e)
-    {
-      if (e.which == 32)
-      {
+$(function() {
+    $('#message').on('keypress', function(e) {
+      if (e.which == 32) {
         var contact_message=$('#message').val();
-        if (contact_message.length <1)
-        {
+        if (contact_message.length <1) {
           return false; // not allowing space to  be first.
         }
-        else
-        {
+        else {
           return true;
         }
       }
